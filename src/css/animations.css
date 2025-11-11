@@ -1,79 +1,80 @@
-/* animations.css */
-
-/* Hero Section Animation */
+:root {
+  --color-sunrise: #ff6b35;
+  --color-terracotta: #d1495b;
+  --color-teal: #2f9c95;
+  --color-slate: #2a2d34;
+  --color-cream: #f9f4ef;
+  --font-display: "Cabinet Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-accent: "Sora", sans-serif;
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(circle at 20% 20%, rgba(255, 107, 53, 0.25), transparent),
+    radial-gradient(circle at 80% 10%, rgba(47, 156, 149, 0.2), transparent),
+    var(--color-cream);
+  color: var(--color-slate);
+  transition: background-color 400ms var(--ease-spring);
+}
 .hero {
-  animation: fadeIn 1s ease-in-out;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
-
-@keyframes fadeIn {
-  from {
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(2rem, 5vw, 6rem);
+  max-width: 52rem;
+  display: grid;
+  gap: 1.5rem;
+}
+.hero__chips li {
+  display: inline-grid;
+  place-items: center;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(47, 156, 149, 0.12);
+  color: var(--color-terracotta);
+  font-weight: 600;
+  transition: transform 300ms var(--ease-spring), background 300ms;
+}
+.hero__chips li:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: rgba(255, 107, 53, 0.2);
+}
+.hero__scroll-cue span {
+  width: 18px;
+  height: 28px;
+  display: inline-block;
+  border: 2px solid var(--color-slate);
+  border-radius: 999px;
+  position: relative;
+}
+.hero__scroll-cue span::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-slate);
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  animation: scrollPulse 1.4s infinite;
+}
+@keyframes scrollPulse {
+  0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate(-50%, -4px);
   }
-  to {
+  50% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 6px);
   }
-}
-
-/* Button Hover Effect */
-.button {
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.button:hover {
-  background-color: #ff6f61; /* Warm Peruvian tone */
-  transform: scale(1.05);
-}
-
-/* Skill Badge Animation */
-.skill-badge {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: slideIn 0.5s forwards;
-}
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 14px);
   }
-}
-
-/* Section Transition Effects */
-.section {
-  transition: background-color 0.5s ease;
-}
-
-.section:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
-}
-
-/* Parallax Scroll Effect */
-.parallax {
-  background-attachment: fixed;
-  background-size: cover;
-  transition: transform 0.5s ease;
-}
-
-.parallax:hover {
-  transform: scale(1.05);
-}
-
-/* 3D Emblem Animation */
-.emblem {
-  transition: transform 0.3s ease;
-}
-
-.emblem:hover {
-  transform: rotate(10deg);
-}
-
-/* Audio Reactive Animation */
-.audio-reactive {
-  transition: transform 0.2s ease;
-}
-
-.audio-reactive.active {
-  transform: scale(1.1);
 }
