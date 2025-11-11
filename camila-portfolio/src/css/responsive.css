@@ -1,0 +1,71 @@
+/* Responsive styles for Camila's portfolio */
+
+@media (max-width: 1200px) {
+    /* Adjust layout for medium screens */
+    .hero {
+        padding: 50px 20px;
+        text-align: center;
+    }
+    
+    .about, .skills, .education, .internships, .projects, .work, .leadership, .interests, .contact {
+        padding: 40px 15px;
+    }
+    
+    h1, h2, h3 {
+        font-size: 1.5em;
+    }
+    
+    .skills-table, .work-experience-table {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Adjust layout for small screens */
+    .hero {
+        font-size: 1.2em;
+    }
+    
+    .about, .skills, .education, .internships, .projects, .work, .leadership, .interests, .contact {
+        padding: 30px 10px;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .skills-table, .work-experience-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjust layout for extra small screens */
+    .hero {
+        font-size: 1em;
+        padding: 20px 10px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1.2em;
+    }
+    
+    .contact-form {
+        flex-direction: column;
+    }
+    
+    .contact-form input, .contact-form textarea {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

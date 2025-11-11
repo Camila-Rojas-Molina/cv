@@ -1,0 +1,87 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #e67e22; /* Sunset orange */
+}
+
+a {
+    color: #2980b9; /* Teal */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.hero {
+    background: linear-gradient(to right, #e67e22, #2980b9);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.about, .skills, .education, .internships, .projects, .work, .leadership, .interests, .contact {
+    padding: 60px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.skills table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.skills th, .skills td {
+    padding: 10px;
+    text-align: left;
+}
+
+.skills td {
+    width: 50%;
+}
+
+.skill-badge {
+    display: inline-block;
+    background-color: #2980b9;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.skill-badge:hover {
+    transform: scale(1.1);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 50px 10px;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    .skills table {
+        font-size: 14px;
+    }
+}

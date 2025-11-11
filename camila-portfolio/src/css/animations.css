@@ -1,0 +1,79 @@
+/* animations.css */
+
+/* Hero Section Animation */
+.hero {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Hover Effect */
+.button {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ff6f61; /* Warm Peruvian tone */
+  transform: scale(1.05);
+}
+
+/* Skill Badge Animation */
+.skill-badge {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section Transition Effects */
+.section {
+  transition: background-color 0.5s ease;
+}
+
+.section:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+}
+
+/* Parallax Scroll Effect */
+.parallax {
+  background-attachment: fixed;
+  background-size: cover;
+  transition: transform 0.5s ease;
+}
+
+.parallax:hover {
+  transform: scale(1.05);
+}
+
+/* 3D Emblem Animation */
+.emblem {
+  transition: transform 0.3s ease;
+}
+
+.emblem:hover {
+  transform: rotate(10deg);
+}
+
+/* Audio Reactive Animation */
+.audio-reactive {
+  transition: transform 0.2s ease;
+}
+
+.audio-reactive.active {
+  transform: scale(1.1);
+}
