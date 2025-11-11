@@ -1,10 +1,10 @@
 # Camila Rojas Molina Portfolio
 
-Welcome to the portfolio of Camila Rojas Molina, a creative individual with a multicultural background, athletic identity, and musical talents. This project showcases her journey from Peru to the US and now to Montreal, highlighting her skills in web design, music, and sports.
+Welcome to my portfolio! I am a creative individual with a multicultural background, athletic identity, and musical talents. This project showcases my journey from Peru to the US and now to Montreal, highlighting my skills in web design, music, and sports.
 
 ## Project Overview
 
-This portfolio is designed to be modern, interactive, and visually appealing. It features a 3D centerpiece created with Three.js that ties together Camila's interests in volleyball and music. The site includes various sections to present her education, work experience, projects, and contact information.
+This portfolio is designed to be modern, interactive, and visually appealing. It features a 3D centerpiece created with Three.js that ties together my interests in volleyball and music. The site includes various sections to present my education, work experience, projects, and contact information.
 
 ## Features
 
