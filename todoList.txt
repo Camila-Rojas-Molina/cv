@@ -1,0 +1,115 @@
+Todo list
+------------------------------------
+
+1. Start a draft of the readme
+
+Todo list
+------------------------------------
+
+Goal
+------------------------------------
+- Build a clean, fast portfolio site with projects, CV, and contact.
+
+High priority (this week)
+------------------------------------
+1. Define site sections + navigation
+   - Home (landing)
+   - About
+   - Projects
+   - CV
+   - Contact
+
+2. Fill in core pages (content)
+   - src/pages/about.html
+   - src/pages/projects.html
+   - src/pages/cv.html
+   - src/pages/contact.html
+
+3. Add/update assets
+   - Choose fonts (src/assets/fonts)
+   - Add 1 profile image + 3–6 project images (pictures/ or src/assets/)
+   - Optimize images (size + dimensions)
+
+4. Projects section (portfolio must-have)
+   - Pick 3–6 projects
+   - For each: title, summary, tech stack, role, outcomes, links (GitHub + demo)
+
+5. CV integration
+   - Confirm CV page is scannable
+   - Add downloadable PDF to public/downloads/
+   - Link the download from the CV page
+
+6. Contact reliability
+   - Decide: mailto link OR contact form handling
+   - If form: validate inputs + prevent empty submissions
+
+7. README (start now, polish later)
+   - What it is + features
+   - How to run locally
+   - Build/deploy notes
+   - Tech stack
+
+Core quality (next)
+------------------------------------
+8. Responsive layout
+   - Test: phone, tablet, desktop
+   - Verify nav usability and spacing
+
+9. Accessibility checklist
+   - One H1 per page + proper heading order
+   - Alt text for meaningful images
+   - Keyboard navigation (tab order + focus styles)
+   - Color contrast checks
+
+10. SEO + metadata
+   - Unique <title> per page
+   - Meta description
+   - Open Graph tags (optional)
+   - Favicon
+
+11. Performance pass
+   - Compress images
+   - Avoid blocking scripts
+   - Check bundle size output
+
+12. Consistent styling
+   - Unify typography + spacing scale
+   - Reusable button/link styles
+   - Reduce duplicated CSS across files
+
+Computer Science student polish (Concordia / Montréal)
+------------------------------------
+13. Add “Highlights” section
+   - Coursework (e.g., DS/Algo, OS, DB, Web, Networks)
+   - Interests (graphics, web, ML, security, etc.)
+   - Tools (git, Linux, Docker, etc.)
+
+14. Add “Experience” (even if small)
+   - TA/tutoring, internships, clubs, hackathons, volunteering
+
+15. Add case-study style project writeups
+   - Problem -> approach -> result -> what you’d improve
+
+Build + deployment
+------------------------------------
+16. Verify build works
+   - Confirm webpack build output
+   - Confirm assets resolve in production build
+
+17. Deploy
+   - Pick host: GitHub Pages / Netlify / Vercel
+   - Add custom domain (optional)
+   - Verify all links/routes
+
+18. Final QA checklist
+   - Broken links
+   - Console errors
+   - Mobile layout issues
+   - Spelling/grammar pass
+
+Nice-to-have (later)
+------------------------------------
+19. Subtle animations/micro-interactions
+20. Light/dark theme toggle
+21. Privacy-friendly analytics
+22. Blog/notes section (optional)
