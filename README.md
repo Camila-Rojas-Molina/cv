@@ -1,89 +1,71 @@
 # Camila Rojas Molina Portfolio
 
-Welcome to my portfolio! I am a creative individual with a multicultural background, athletic identity, and musical talents. This project showcases my journey from Peru to the US and now to Montreal, highlighting my skills in web design, music, and sports.
+Multi-page portfolio website for Camila Rojas Molina, Computer Science student at Concordia University, Montréal.
 
-## Project Overview
+## Live Site
 
-This portfolio is designed to be modern, interactive, and visually appealing. It features a 3D centerpiece created with Three.js that ties together my interests in volleyball and music. The site includes various sections to present my education, work experience, projects, and contact information.
-
-## Features
-
-- **Responsive Design**: The portfolio is fully responsive, ensuring a seamless experience across devices.
-- **Interactive Elements**: Includes hover-reactive textures, scroll-tied parallax effects, and dynamic color shifts.
-- **3D Visualization**: A Three.js scene that reacts to user interactions and audio input, showcasing Camila's musical talents.
-- **Micro-Interactions**: Smooth animations and transitions enhance user experience throughout the site.
-- **Accessibility**: The project adheres to accessibility standards, ensuring that all users can navigate and interact with the content.
+**URL:** https://camila-rojas-molina.github.io/cv/
 
 ## Project Structure
 
 ```
-camila-portfolio
-├── src
-│   ├── index.html
-│   ├── css
-│   │   ├── styles.css
-│   │   ├── animations.css
-│   │   └── responsive.css
-│   ├── js
-│   │   ├── main.js
-│   │   ├── three-scene.js
-│   │   ├── interactions.js
-│   │   └── audio-visualizer.js
-│   ├── assets
-│   │   ├── fonts
-│   │   ├── textures
-│   │   └── models
-│   └── pages
-│       ├── about.html
-│       ├── projects.html
-│       ├── contact.html
-│       └── cv.html
-├── public
-│   └── downloads
-│       └── Camila-CV.pdf
-├── package.json
-├── webpack.config.js
-├── .gitignore
+cv/
+├── docs/                   # Published folder (GitHub Pages source)
+│   ├── index.html         # Homepage
+│   ├── about.html         # About page
+│   ├── projects.html      # Projects showcase
+│   ├── cv.html            # CV/Resume
+│   ├── contact.html       # Contact form
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   ├── images/            # Profile and project images
+│   └── downloads/         # PDF CV
+├── src/                   # Original Three.js version (archived)
 └── README.md
 ```
 
-## Setup Instructions
+## Local Development
 
-1. **Clone the Repository**: 
+No build tools required. Open any HTML file in your browser:
+
+```bash
+open docs/index.html
+```
+
+Or use a simple local server:
+
+```bash
+cd docs
+python3 -m http.server 8000
+# Visit http://localhost:8000
+```
+
+## Deployment (GitHub Pages)
+
+1. Commit changes to the `docs/` folder
+2. Push to GitHub:
    ```bash
-   git clone <repository-url>
-   cd camila-portfolio
+   git add docs/
+   git commit -m "Update portfolio"
+   git push origin main
    ```
+3. In your GitHub repo → Settings → Pages:
+   - Source: Deploy from a branch
+   - Branch: `main`
+   - Folder: `/docs`
+4. Site will be live at: `https://camila-rojas-molina.github.io/cv/`
 
-2. **Install Dependencies**: 
-   ```bash
-   npm install
-   ```
+## To-Do
 
-3. **Run the Development Server**: 
-   ```bash
-   npm start
-   ```
+See [todoList.txt](todoList.txt) for current tasks.
 
-4. **Build for Production**: 
-   ```bash
-   npm run build
-   ```
+## Notes
 
-## Usage
-
-- Navigate through the sections using the menu.
-- Interact with the 3D centerpiece to explore Camila's musical talents.
-- Download the CV from the contact page.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
+- **Previous version**: The Three.js version is archived in the `threejs-archive` branch
+- **Simple stack**: Plain HTML/CSS/JS (no build tools) for easy editing and deployment
 
 ---
 
-Thank you for visiting Camila's portfolio!
+**Contact:** Concordia University | Montréal, QC
