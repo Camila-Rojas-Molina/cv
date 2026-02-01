@@ -6,39 +6,39 @@
     <title>Projects | Camila Rojas Molina</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <nav>
+<body class="font-sans leading-normal text-gray-900 bg-white">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <nav class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
             <div class="logo">
-                <a href="index.html">Camila Rojas Molina</a>
+                <a href="index.html" class="text-xl font-semibold text-gray-900 hover:text-primary transition-colors">Camila Rojas Molina</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="contact.html">Contact</a></li>
+            <ul class="flex gap-8 list-none">
+                <li><a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a></li>
+                <li><a href="about.html" class="text-gray-600 hover:text-primary transition-colors">About</a></li>
+                <li><a href="projects.html" class="text-gray-600 hover:text-primary transition-colors">Projects</a></li>
+                <li><a href="cv.html" class="text-gray-600 hover:text-primary transition-colors">CV</a></li>
+                <li><a href="contact.html" class="text-gray-600 hover:text-primary transition-colors">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="projects-section">
-            <div class="container">
-                <h1>My Projects</h1>
+        <section class="py-16 px-8">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-12">My Projects</h1>
                 
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="images/project1.jpg" alt="">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <article class="border border-gray-200 rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        <div class="project-image w-full h-48 bg-gray-100">
+                            <img src="images/project1.jpg" alt="" class="w-full h-full object-cover">
                         </div>
-                        <div class="project-info">
-                            <h3></h3>
-                            <p class="project-description"></p>
-                            <p class="tech-stack"><strong>Tech:</strong> </p>
-                            <div class="project-links">
-                                <a href="#" class="btn-small">GitHub</a>
-                                <a href="#" class="btn-small">Live Demo</a>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-3"></h3>
+                            <p class="text-gray-600 mb-3"></p>
+                            <p class="text-gray-400 text-sm mb-4"><strong>Tech:</strong> </p>
+                            <div class="flex gap-3">
+                                <a href="#" class="btn btn-small btn-primary">GitHub</a>
+                                <a href="#" class="btn btn-small btn-secondary">Live Demo</a>
                             </div>
                         </div>
                     </article>
@@ -77,7 +77,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="bg-gray-50 text-center py-8 mt-16 text-gray-600">
         <p>&copy; 2026 Camila Rojas Molina</p>
     </footer>
 

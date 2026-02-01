@@ -1,7 +1,7 @@
 Todo list
 ------------------------------------
 
-1. Start a draft of the readme
+1. Change the readMe (DONE)
 
 Todo list
 ------------------------------------
