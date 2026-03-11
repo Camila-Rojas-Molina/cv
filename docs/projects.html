@@ -5,6 +5,253 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Camila Rojas Molina</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ── Slider layout ── */
+        .projects-section {
+            padding: 4rem 2rem 5rem;
+        }
+
+        .projects-header {
+            max-width: 80rem;
+            margin: 0 auto 3rem;
+        }
+
+        .slider-wrapper {
+            max-width: 80rem;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ── Track ── */
+        .slider-viewport {
+            overflow: hidden;
+            width: 100%;
+            border-radius: 1.25rem;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        /* ── Individual slide ── */
+        .slide {
+            min-width: 100%;
+            display: flex;
+            min-height: 480px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+
+        .slide-image-col {
+            width: 42%;
+            flex-shrink: 0;
+            background: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .slide-image-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .slide:hover .slide-image-col img {
+            transform: scale(1.04);
+        }
+
+        .slide-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f0fdf4 100%);
+            font-size: 4rem;
+            color: #a5b4fc;
+        }
+
+        .slide-content {
+            flex: 1;
+            padding: 3rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-index {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0066cc;
+            margin-bottom: 0.75rem;
+        }
+
+        .slide-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .slide-description {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            font-size: 0.9375rem;
+        }
+
+        .slide-tech {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            border-left: 3px solid #0066cc;
+        }
+
+        .slide-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .slide-links a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .link-github {
+            background: #111827;
+            color: #fff;
+        }
+
+        .link-github:hover {
+            background: #374151;
+        }
+
+        .link-demo {
+            border: 2px solid #0066cc;
+            color: #0066cc;
+            background: transparent;
+        }
+
+        .link-demo:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        /* ── Navigation buttons ── */
+        .slider-btn {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: all 0.2s;
+            color: #374151;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .slider-btn:hover:not(:disabled) {
+            background: #0066cc;
+            border-color: #0066cc;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .slider-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        /* ── Dots ── */
+        .slider-footer {
+            max-width: 80rem;
+            margin: 1.5rem auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .dot.active {
+            background: #0066cc;
+            width: 1.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .slide-counter {
+            font-size: 0.8125rem;
+            color: #9ca3af;
+            min-width: 3rem;
+            text-align: center;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .slide {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .slide-image-col {
+                width: 100%;
+                height: 220px;
+            }
+
+            .slide-content {
+                padding: 1.75rem;
+            }
+
+            .slider-btn {
+                width: 2.25rem;
+                height: 2.25rem;
+                font-size: 1.125rem;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans leading-normal text-gray-900 bg-white">
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -23,57 +270,83 @@
     </header>
 
     <main>
-        <section class="py-16 px-8">
-            <div class="max-w-7xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-bold mb-12">My Projects</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <article class="border border-gray-200 rounded-lg overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-                        <div class="project-image w-full h-48 bg-gray-100">
-                            <img src="images/project1.jpg" alt="" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-3"></h3>
-                            <p class="text-gray-600 mb-3">Sage Coin - Agentic Online Banking </p>
-                            <p class="text-gray-400 text-sm mb-4"><strong>Tech: Python, FastAPI, Pydantic,
-                                 MongoDB, Google Gemini, pytest, React + TypeScript + Vite, Chrome Extension (MV3), Stripe APIs (backend route), CORS/REST </strong> </p>
-                            <div class="flex gap-3">
-                                <a href="https://github.com/Camila-Rojas-Molina/SageCoin-ConuHacks2026" class="btn btn-small btn-primary">GitHub</a>
-                                <a href="#" class="btn btn-small btn-secondary">Live Demo</a>
-                            </div>
-                        </div>
-                    </article>
+        <section class="projects-section">
+            <div class="projects-header">
+                <h1 class="text-4xl md:text-5xl font-bold">My Projects</h1>
+            </div>
 
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="images/project2.jpg" alt="">
-                        </div>
-                        <div class="project-info">
-                            <h3>Xpresso - AI Video editor </h3>
-                            <p class="project-description"></p>
-                            <p class="tech-stack"><strong>Tech: Typescript (frontend), Python (backend), CSS,  Gemini, MongoDB</strong> </p>
-                            <div class="project-links">
-                                <a href="https://github.com/reamourad/mchacks2026" class="btn-small">GitHub</a>
-                                <a href="https://mchacks2026.vercel.app/" class="btn-small">Live Demo</a>
-                            </div>
-                        </div>
-                    </article>
+            <!-- Slider -->
+            <div class="slider-wrapper" aria-label="Projects slider">
+                <button class="slider-btn prev-btn" aria-label="Previous project">&#8249;</button>
 
-                    <article class="project-card">
-                        <div class="project-image">
-                            <img src="images/project3.jpg" alt="">
-                        </div>
-                        <div class="project-info">
-                            <h3></h3>
-                            <p class="project-description"></p>
-                            <p class="tech-stack"><strong>Tech:</strong> </p>
-                            <div class="project-links">
-                                <a href="#" class="btn-small">GitHub</a>
-                                <a href="#" class="btn-small">Live Demo</a>
+                <div class="slider-viewport">
+                    <div class="slider-track" role="list">
+
+                        <!-- Slide 1 — SageCoin -->
+                        <article class="slide" role="listitem">
+                            <div class="slide-image-col">
+                                <img src="images/project1.jpg" alt="SageCoin project screenshot" onerror="this.parentElement.innerHTML='<div class=\'slide-image-placeholder\'>💰</div>'">
                             </div>
-                        </div>
-                    </article>
+                            <div class="slide-content">
+                                <span class="slide-index">Project 01</span>
+                                <h2 class="slide-title">SageCoin — Agentic Online Banking</h2>
+                                <p class="slide-description">An AI-powered banking assistant that lets users manage finances through natural language. Built during ConuHacks 2026.</p>
+                                <p class="slide-tech"><strong>Tech:</strong> Python, FastAPI, Pydantic, MongoDB, Google Gemini, pytest, React + TypeScript + Vite, Chrome Extension (MV3), Stripe APIs, CORS/REST</p>
+                                <div class="slide-links">
+                                    <a href="https://github.com/Camila-Rojas-Molina/SageCoin-ConuHacks2026" class="link-github" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="#" class="link-demo">Live Demo</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Slide 2 — Xpresso -->
+                        <article class="slide" role="listitem">
+                            <div class="slide-image-col">
+                                <img src="images/project2.jpg" alt="Xpresso project screenshot" onerror="this.parentElement.innerHTML='<div class=\'slide-image-placeholder\'>🎬</div>'">
+                            </div>
+                            <div class="slide-content">
+                                <span class="slide-index">Project 02</span>
+                                <h2 class="slide-title">Xpresso — AI Video Editor</h2>
+                                <p class="slide-description">An intelligent video editing tool that uses AI to automate cuts, captions, and more. Submitted at McHacks 2026.</p>
+                                <p class="slide-tech"><strong>Tech:</strong> TypeScript (frontend), Python (backend), CSS, Google Gemini, MongoDB</p>
+                                <div class="slide-links">
+                                    <a href="https://github.com/reamourad/mchacks2026" class="link-github" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="https://mchacks2026.vercel.app/" class="link-demo" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Slide 3 — placeholder -->
+                        <article class="slide" role="listitem">
+                            <div class="slide-image-col">
+                                <img src="images/project3.jpg" alt="Project 3 screenshot" onerror="this.parentElement.innerHTML='<div class=\'slide-image-placeholder\'>🚀</div>'">
+                            </div>
+                            <div class="slide-content">
+                                <span class="slide-index">Project 03</span>
+                                <h2 class="slide-title">Coming Soon</h2>
+                                <p class="slide-description">Next project in progress — stay tuned!</p>
+                                <p class="slide-tech"><strong>Tech:</strong> TBD</p>
+                                <div class="slide-links">
+                                    <a href="#" class="link-github">GitHub</a>
+                                    <a href="#" class="link-demo">Live Demo</a>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div><!-- /.slider-track -->
+                </div><!-- /.slider-viewport -->
+
+                <button class="slider-btn next-btn" aria-label="Next project">&#8250;</button>
+            </div><!-- /.slider-wrapper -->
+
+            <!-- Dots + counter -->
+            <div class="slider-footer">
+                <div class="slider-dots" aria-label="Slide indicators">
+                    <button class="dot active" aria-label="Go to slide 1"></button>
+                    <button class="dot" aria-label="Go to slide 2"></button>
+                    <button class="dot" aria-label="Go to slide 3"></button>
                 </div>
+                <span class="slide-counter">1 / 3</span>
             </div>
         </section>
     </main>
@@ -83,5 +356,47 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        (function () {
+            const track    = document.querySelector('.slider-track');
+            const slides   = document.querySelectorAll('.slide');
+            const prevBtn  = document.querySelector('.prev-btn');
+            const nextBtn  = document.querySelector('.next-btn');
+            const dots     = document.querySelectorAll('.dot');
+            const counter  = document.querySelector('.slide-counter');
+            const total    = slides.length;
+            let current    = 0;
+
+            function goTo(index) {
+                current = Math.max(0, Math.min(index, total - 1));
+                track.style.transform = `translateX(-${current * 100}%)`;
+
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === total - 1;
+                counter.textContent = `${current + 1} / ${total}`;
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+            dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+            /* Touch / swipe */
+            let startX = 0;
+            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+            }, { passive: true });
+
+            /* Keyboard */
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft')  goTo(current - 1);
+                if (e.key === 'ArrowRight') goTo(current + 1);
+            });
+
+            goTo(0);
+        })();
+    </script>
 </body>
 </html>
