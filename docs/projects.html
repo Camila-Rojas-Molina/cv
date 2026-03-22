@@ -30,11 +30,19 @@
             overflow: hidden;
             width: 100%;
             border-radius: 1.25rem;
+            touch-action: pan-y;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .slider-viewport.dragging {
+            cursor: grabbing;
         }
 
         .slider-track {
             display: flex;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
             will-change: transform;
         }
 
@@ -359,16 +367,33 @@
     <script>
         (function () {
             const track    = document.querySelector('.slider-track');
+            const viewport = document.querySelector('.slider-viewport');
             const slides   = document.querySelectorAll('.slide');
             const prevBtn  = document.querySelector('.prev-btn');
             const nextBtn  = document.querySelector('.next-btn');
             const dots     = document.querySelectorAll('.dot');
             const counter  = document.querySelector('.slide-counter');
             const total    = slides.length;
+            const baseTransition = 'transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1)';
             let current    = 0;
+            let isDragging = false;
+            let startX = 0;
+            let deltaX = 0;
+            let suppressClick = false;
+            let activePointerId = null;
+            let lastClientX = 0;
+            let lastMoveTime = 0;
+            let velocityX = 0;
+            let wheelOffset = 0;
+            let wheelSettleTimer = null;
+
+            function slideWidth() {
+                return viewport.getBoundingClientRect().width || 1;
+            }
 
             function goTo(index) {
                 current = Math.max(0, Math.min(index, total - 1));
+                track.style.transition = baseTransition;
                 track.style.transform = `translateX(-${current * 100}%)`;
 
                 dots.forEach((d, i) => d.classList.toggle('active', i === current));
@@ -377,17 +402,144 @@
                 counter.textContent = `${current + 1} / ${total}`;
             }
 
+            function setDragPosition() {
+                const base = -current * slideWidth();
+                track.style.transition = 'none';
+                track.style.transform = `translateX(${base + deltaX}px)`;
+            }
+
+            function renderOffset(offsetX) {
+                const base = -current * slideWidth();
+                track.style.transition = 'none';
+                track.style.transform = `translateX(${base + offsetX}px)`;
+            }
+
+            function edgeResistance(offsetX) {
+                if (current === 0 && offsetX > 0) return offsetX * 0.32;
+                if (current === total - 1 && offsetX < 0) return offsetX * 0.32;
+                return offsetX;
+            }
+
+            function startDrag(clientX) {
+                isDragging = true;
+                startX = clientX;
+                deltaX = 0;
+                suppressClick = false;
+                velocityX = 0;
+                lastClientX = clientX;
+                lastMoveTime = performance.now();
+                viewport.classList.add('dragging');
+            }
+
+            function moveDrag(clientX) {
+                if (!isDragging) return;
+                const now = performance.now();
+                const dt = now - lastMoveTime;
+                if (dt > 0) velocityX = (clientX - lastClientX) / dt;
+                lastClientX = clientX;
+                lastMoveTime = now;
+
+                deltaX = clientX - startX;
+                if (Math.abs(deltaX) > 6) suppressClick = true;
+                renderOffset(edgeResistance(deltaX));
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                viewport.classList.remove('dragging');
+
+                const projected = deltaX + (velocityX * 220);
+                const threshold = slideWidth() * 0.16;
+                if (Math.abs(projected) > threshold) {
+                    goTo(projected < 0 ? current + 1 : current - 1);
+                } else {
+                    goTo(current);
+                }
+            }
+
+            function settleWheelGesture() {
+                const projected = wheelOffset;
+                const threshold = slideWidth() * 0.14;
+
+                if (Math.abs(projected) > threshold) {
+                    goTo(projected < 0 ? current + 1 : current - 1);
+                } else {
+                    goTo(current);
+                }
+
+                wheelOffset = 0;
+            }
+
             prevBtn.addEventListener('click', () => goTo(current - 1));
             nextBtn.addEventListener('click', () => goTo(current + 1));
             dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 
-            /* Touch / swipe */
-            let startX = 0;
-            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-            track.addEventListener('touchend', e => {
-                const diff = startX - e.changedTouches[0].clientX;
-                if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
-            }, { passive: true });
+            /* Drag / swipe with pointer events (touch + mouse + pen) */
+            viewport.addEventListener('pointerdown', e => {
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+                activePointerId = e.pointerId;
+                viewport.setPointerCapture(e.pointerId);
+                startDrag(e.clientX);
+            });
+
+            viewport.addEventListener('pointermove', e => {
+                if (e.pointerId !== activePointerId) return;
+                moveDrag(e.clientX);
+            });
+
+            viewport.addEventListener('pointerup', e => {
+                if (e.pointerId !== activePointerId) return;
+                endDrag();
+                viewport.releasePointerCapture(e.pointerId);
+                activePointerId = null;
+            });
+
+            viewport.addEventListener('pointercancel', e => {
+                if (e.pointerId !== activePointerId) return;
+                endDrag();
+                if (viewport.hasPointerCapture(e.pointerId)) viewport.releasePointerCapture(e.pointerId);
+                activePointerId = null;
+            });
+
+            viewport.addEventListener('pointerleave', () => {
+                if (isDragging) endDrag();
+            });
+
+            /* Two-finger trackpad swipe / wheel support */
+            viewport.addEventListener('wheel', e => {
+                if (isDragging) return;
+
+                const absX = Math.abs(e.deltaX);
+                const absY = Math.abs(e.deltaY);
+                const usingHorizontal = absX > absY || e.shiftKey;
+                if (!usingHorizontal) return;
+
+                e.preventDefault();
+
+                const primaryDelta = e.shiftKey && absY > absX ? e.deltaY : e.deltaX;
+                wheelOffset -= primaryDelta;
+                const maxOffset = slideWidth() * 0.8;
+                wheelOffset = Math.max(-maxOffset, Math.min(maxOffset, wheelOffset));
+
+                renderOffset(edgeResistance(wheelOffset));
+
+                clearTimeout(wheelSettleTimer);
+                wheelSettleTimer = setTimeout(settleWheelGesture, 90);
+            }, { passive: false });
+
+            viewport.addEventListener('click', e => {
+                if (suppressClick) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                suppressClick = false;
+            }, true);
+
+            window.addEventListener('resize', () => {
+                if (!isDragging) goTo(current);
+            });
 
             /* Keyboard */
             document.addEventListener('keydown', e => {
