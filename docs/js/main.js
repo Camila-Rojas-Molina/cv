@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlay = document.createElement('div');
         overlay.className = 'paint-overlay';
 
+        document.body.classList.add('paint-active');
+
         // Create a few drips for a "falling paint" feel.
         const dripCount = 10;
         for (let i = 0; i < dripCount; i++) {
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const cleanup = () => {
             window.clearTimeout(midpointTimer);
+            document.body.classList.remove('paint-active');
             overlay.remove();
         };
 

@@ -721,12 +721,52 @@ html.dark .theme-toggle-thumb {
 .paint-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background-color: #0066cc;
+  /* Match the dark-mode background color */
+  background-color: #111827;
   height: 0;
   opacity: 0;
+}
+
+/* Keep page content above the paint layer while animating */
+
+.paint-active header,
+  .paint-active main,
+  .paint-active footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* While paint is filling (before html.dark is applied), keep text readable */
+
+body.paint-active {
+  color: #f3f4f6;
+}
+
+body.paint-active.text-gray-900 {
+  color: #f3f4f6;
+}
+
+body.paint-active.text-gray-600 {
+  color: #d1d5db;
+}
+
+body.paint-active.text-gray-400 {
+  color: #9ca3af;
+}
+
+.paint-active .text-gray-900 {
+  color: #f3f4f6;
+}
+
+.paint-active .text-gray-600 {
+  color: #d1d5db;
+}
+
+.paint-active .text-gray-400 {
+  color: #9ca3af;
 }
 
 .paint-overlay.is-animating {

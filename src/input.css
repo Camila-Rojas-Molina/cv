@@ -101,13 +101,43 @@
   .paint-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 0;
     pointer-events: none;
     overflow: hidden;
-    background-color: theme('colors.primary');
+    /* Match the dark-mode background color */
+    background-color: theme('colors.gray.900');
     height: 0;
     opacity: 0;
   }
+
+  /* Keep page content above the paint layer while animating */
+  .paint-active header,
+  .paint-active main,
+  .paint-active footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* While paint is filling (before html.dark is applied), keep text readable */
+  body.paint-active {
+    color: theme('colors.gray.100');
+  }
+
+  body.paint-active.text-gray-900 {
+    color: theme('colors.gray.100');
+  }
+
+  body.paint-active.text-gray-600 {
+    color: theme('colors.gray.300');
+  }
+
+  body.paint-active.text-gray-400 {
+    color: theme('colors.gray.400');
+  }
+
+  .paint-active .text-gray-900 { color: theme('colors.gray.100'); }
+  .paint-active .text-gray-600 { color: theme('colors.gray.300'); }
+  .paint-active .text-gray-400 { color: theme('colors.gray.400'); }
 
   .paint-overlay.is-animating {
     opacity: 1;
