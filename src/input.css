@@ -123,6 +123,13 @@
     color: theme('colors.gray.100');
   }
 
+  /* Make header/background feel like dark mode immediately during the animation */
+  body.paint-active .bg-white { background-color: theme('colors.gray.900'); }
+  body.paint-active .bg-gray-50 { background-color: theme('colors.gray.900'); }
+  body.paint-active .bg-gray-100 { background-color: theme('colors.gray.800'); }
+  body.paint-active .border-gray-200 { border-color: theme('colors.gray.700'); }
+  body.paint-active .border-gray-300 { border-color: theme('colors.gray.700'); }
+
   body.paint-active.text-gray-900 {
     color: theme('colors.gray.100');
   }

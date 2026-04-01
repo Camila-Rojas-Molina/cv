@@ -745,6 +745,28 @@ body.paint-active {
   color: #f3f4f6;
 }
 
+/* Make header/background feel like dark mode immediately during the animation */
+
+body.paint-active .bg-white {
+  background-color: #111827;
+}
+
+body.paint-active .bg-gray-50 {
+  background-color: #111827;
+}
+
+body.paint-active .bg-gray-100 {
+  background-color: #1f2937;
+}
+
+body.paint-active .border-gray-200 {
+  border-color: #374151;
+}
+
+body.paint-active .border-gray-300 {
+  border-color: #374151;
+}
+
 body.paint-active.text-gray-900 {
   color: #f3f4f6;
 }
