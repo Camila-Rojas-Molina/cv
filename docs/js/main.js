@@ -6,6 +6,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
     const storageKey = 'theme';
 
+    function isHomePage() {
+        const path = window.location.pathname;
+        return path.endsWith('/') || path.endsWith('/index.html');
+    }
+
+    function playPaintTransition(onMidpoint) {
+        const overlay = document.createElement('div');
+        overlay.className = 'paint-overlay';
+
+        // Create a few drips for a "falling paint" feel.
+        const dripCount = 10;
+        for (let i = 0; i < dripCount; i++) {
+            const drip = document.createElement('span');
+            drip.className = 'paint-drip';
+
+            const left = (i / dripCount) * 100 + (Math.random() * 6 - 3);
+            const width = 14 + Math.random() * 28;
+            const height = 70 + Math.random() * 180;
+            const delay = Math.random() * 140;
+
+            drip.style.left = `${Math.max(0, Math.min(96, left))}%`;
+            drip.style.width = `${width}px`;
+            drip.style.height = `${height}px`;
+            drip.style.animationDelay = `${delay}ms`;
+
+            overlay.appendChild(drip);
+        }
+
+        document.body.appendChild(overlay);
+
+        // Trigger animations on next frame.
+        requestAnimationFrame(() => overlay.classList.add('is-animating'));
+
+        // Apply dark mode while paint is covering the page.
+        const midpointTimer = window.setTimeout(() => {
+            if (typeof onMidpoint === 'function') onMidpoint();
+        }, 630);
+
+        const cleanup = () => {
+            window.clearTimeout(midpointTimer);
+            overlay.remove();
+        };
+
+        overlay.addEventListener('animationend', cleanup, { once: true });
+
+        // Safety cleanup in case animationend doesn't fire.
+        window.setTimeout(cleanup, 1200);
+    }
+
     function applyTheme(theme) {
         const isDark = theme === 'dark';
         root.classList.toggle('dark', isDark);
@@ -24,6 +73,19 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const next = root.classList.contains('dark') ? 'light' : 'dark';
+            const toDark = next === 'dark';
+
+            // Home page: paint-drip transition when switching into dark mode.
+            if (toDark && isHomePage()) {
+                toggleButtons.forEach(b => (b.disabled = true));
+                playPaintTransition(() => {
+                    localStorage.setItem(storageKey, next);
+                    applyTheme(next);
+                });
+                window.setTimeout(() => toggleButtons.forEach(b => (b.disabled = false)), 950);
+                return;
+            }
+
             localStorage.setItem(storageKey, next);
             applyTheme(next);
         });

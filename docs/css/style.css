@@ -716,6 +716,67 @@ html.dark .theme-toggle-thumb {
   outline-offset: 2px;
 }
 
+/* Home page dark-mode paint transition */
+
+.paint-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: #0066cc;
+  height: 0;
+  opacity: 0;
+}
+
+.paint-overlay.is-animating {
+  opacity: 1;
+  animation: paintFill 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.paint-overlay .paint-drip {
+  position: absolute;
+  top: -40px;
+  background-color: inherit;
+  border-radius: 9999px;
+  opacity: 0.95;
+  animation: dripFall 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes paintFill {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+
+  70% {
+    height: 100vh;
+    opacity: 1;
+  }
+
+  100% {
+    height: 100vh;
+    opacity: 0;
+  }
+}
+
+@keyframes dripFall {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(120vh);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paint-overlay.is-animating,
+    .paint-overlay .paint-drip {
+    animation: none !important;
+  }
+}
+
 .relative {
   position: relative;
 }
