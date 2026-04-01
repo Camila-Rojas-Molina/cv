@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html.dark body {
+    background-color: theme('colors.gray.900');
+    color: theme('colors.gray.100');
+  }
+
+  /* Map common Tailwind utility classes used in the HTML to dark equivalents */
+  html.dark .bg-white { background-color: theme('colors.gray.900'); }
+  html.dark .bg-gray-50 { background-color: theme('colors.gray.900'); }
+  html.dark .bg-gray-100 { background-color: theme('colors.gray.800'); }
+
+  html.dark .border-gray-200 { border-color: theme('colors.gray.700'); }
+  html.dark .border-gray-300 { border-color: theme('colors.gray.700'); }
+
+  html.dark .text-gray-900 { color: theme('colors.gray.100'); }
+  html.dark .text-gray-600 { color: theme('colors.gray.300'); }
+  html.dark .text-gray-400 { color: theme('colors.gray.400'); }
+
+  /* Projects slider dark tweaks (the slider uses some inline CSS) */
+  html.dark .slide { background-color: theme('colors.gray.900'); border-color: theme('colors.gray.700'); }
+  html.dark .slide-image-col { background-color: theme('colors.gray.800'); }
+  html.dark .slide-tech { background-color: theme('colors.gray.800'); border-left-color: theme('colors.primary'); color: theme('colors.gray.200'); }
+  html.dark .slide-title { color: theme('colors.gray.100'); }
+  html.dark .slide-description { color: theme('colors.gray.300'); }
+  html.dark .slider-btn { background-color: theme('colors.gray.900'); border-color: theme('colors.gray.700'); color: theme('colors.gray.200'); }
+}
+
 /* Custom component classes */
 @layer components {
   .btn {
@@ -18,6 +53,48 @@
   
   .btn-small {
     @apply px-4 py-2 text-sm;
+  }
+
+  .theme-toggle {
+    @apply inline-flex items-center;
+  }
+
+  .theme-toggle-track {
+    width: 42px;
+    height: 24px;
+    border-radius: 9999px;
+    background-color: theme('colors.gray.200');
+    border: 1px solid theme('colors.gray.300');
+    position: relative;
+    transition: background-color 180ms ease, border-color 180ms ease;
+  }
+
+  .theme-toggle-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translate(0, -50%);
+    transition: transform 180ms ease, background-color 180ms ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.16);
+  }
+
+  html.dark .theme-toggle-track {
+    background-color: theme('colors.gray.700');
+    border-color: theme('colors.gray.600');
+  }
+
+  html.dark .theme-toggle-thumb {
+    transform: translate(18px, -50%);
+    background-color: theme('colors.gray.100');
+  }
+
+  .theme-toggle:focus-visible .theme-toggle-track {
+    outline: 2px solid theme('colors.primary');
+    outline-offset: 2px;
   }
 }
 

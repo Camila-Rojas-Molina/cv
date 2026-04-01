@@ -1,6 +1,34 @@
 // Simple JavaScript for form handling and interactions
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggle (dark mode)
+    const root = document.documentElement;
+    const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
+    const storageKey = 'theme';
+
+    function applyTheme(theme) {
+        const isDark = theme === 'dark';
+        root.classList.toggle('dark', isDark);
+        toggleButtons.forEach(btn => btn.setAttribute('aria-pressed', String(isDark)));
+    }
+
+    function getInitialTheme() {
+        const saved = localStorage.getItem(storageKey);
+        if (saved === 'dark' || saved === 'light') return saved;
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    const initialTheme = getInitialTheme();
+    applyTheme(initialTheme);
+
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const next = root.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem(storageKey, next);
+            applyTheme(next);
+        });
+    });
+
     // Contact form handling
     const contactForm = document.querySelector('.contact-form');
     
