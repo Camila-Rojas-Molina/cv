@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlay = document.createElement('div');
         overlay.className = 'paint-overlay';
 
+        const durationMs = 1400;
+        overlay.style.setProperty('--paint-duration', `${durationMs}ms`);
+
         document.body.classList.add('paint-active');
 
         // Create a few drips for a "falling paint" feel.
@@ -44,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply dark mode while paint is covering the page.
         const midpointTimer = window.setTimeout(() => {
             if (typeof onMidpoint === 'function') onMidpoint();
-        }, 630);
+        }, Math.round(durationMs * 0.7));
 
         const cleanup = () => {
             window.clearTimeout(midpointTimer);
@@ -55,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.addEventListener('animationend', cleanup, { once: true });
 
         // Safety cleanup in case animationend doesn't fire.
-        window.setTimeout(cleanup, 1200);
+        window.setTimeout(cleanup, durationMs + 350);
     }
 
     function applyTheme(theme) {
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem(storageKey, next);
                     applyTheme(next);
                 });
-                window.setTimeout(() => toggleButtons.forEach(b => (b.disabled = false)), 950);
+                window.setTimeout(() => toggleButtons.forEach(b => (b.disabled = false)), 1500);
                 return;
             }
 
