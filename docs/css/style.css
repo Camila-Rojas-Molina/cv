@@ -736,8 +736,25 @@ html.dark .theme-toggle-thumb {
   }
 }
 
+.fixed {
+  position: fixed;
+}
+
 .relative {
   position: relative;
+}
+
+.inset-x-0 {
+  left: 0px;
+  right: 0px;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .mx-1 {
@@ -1081,11 +1098,6 @@ html.dark .theme-toggle-thumb {
   padding-bottom: 0.75rem;
 }
 
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -1093,6 +1105,10 @@ html.dark .theme-toggle-thumb {
 
 .pb-2 {
   padding-bottom: 0.5rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
 }
 
 .text-center {
