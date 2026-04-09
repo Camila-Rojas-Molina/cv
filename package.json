@@ -2,7 +2,7 @@
   "name": "camila-portfolio",
   "version": "1.0.0",
   "description": "A modern, interactive portfolio for Camila Rojas Molina showcasing her multicultural background, athletic identity, musical talents, and creative personality.",
-  "main": "src/js/main.js",
+  "main": "docs/js/main.js",
   "scripts": {
     "dev": "npx tailwindcss -i ./src/input.css -o ./docs/css/style.css --watch",
     "build": "npx tailwindcss -i ./src/input.css -o ./docs/css/style.css --minify",
@@ -19,17 +19,7 @@
   ],
   "author": "Camila Rojas Molina",
   "license": "MIT",
-  "dependencies": {
-    "three": "^0.136.0",
-    "webpack": "^5.64.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^3.11.2"
-  },
   "devDependencies": {
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "html-webpack-plugin": "^5.5.0",
-    "style-loader": "^3.3.1",
     "tailwindcss": "^3.4.19"
   }
 }
