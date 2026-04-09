@@ -120,9 +120,6 @@ Add reusable component classes in `src/input.css`:
 }
 ```
 
-## To-Do
-
-See [todoList.txt](todoList.txt) for current tasks.
 
 ## Notes
 
