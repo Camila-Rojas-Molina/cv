@@ -40,7 +40,7 @@
 /* Custom component classes */
 @layer components {
   .btn {
-    @apply px-6 py-3 rounded-md font-medium transition-all duration-300 inline-block;
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 inline-block;
   }
   
   .btn-primary {
@@ -100,137 +100,48 @@
   /* Home page dark-mode paint transition */
   .paint-overlay {
     position: fixed;
-    inset: 0;
-    z-index: 0;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
     pointer-events: none;
-    /* Important: allow the drip edge to extend beyond the fill line */
     overflow: visible;
     /* Match the dark-mode background color */
     --paint-color: theme('colors.gray.900');
-    --paint-duration: 1400ms;
+    --paint-duration: 2800ms;
+    width: 220vmax;
+    height: 220vmax;
+    border-radius: 9999px;
     background-color: var(--paint-color);
-    height: 0;
-    opacity: 0;
-  }
-
-  /* Drippy leading edge so the fill isn't a flat rectangle */
-  .paint-overlay::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -72px;
-    height: 120px;
-    background:
-      radial-gradient(44px 44px at 6% 22px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(32px 32px at 14% 52px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(56px 56px at 24% 18px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(36px 36px at 34% 60px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(50px 50px at 45% 26px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(30px 30px at 54% 66px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(58px 58px at 64% 16px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(34px 34px at 74% 56px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(52px 52px at 84% 22px, var(--paint-color) 99%, transparent 100%),
-      radial-gradient(28px 28px at 93% 62px, var(--paint-color) 99%, transparent 100%);
-    transform: translateY(-12px);
+    transform: translate(-50%, -50%) scale(0);
     opacity: 1;
+    will-change: transform, opacity;
   }
-
-  /* Keep page content above the paint layer while animating */
-  .paint-active header,
-  .paint-active main,
-  .paint-active footer {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* While paint is filling (before html.dark is applied), keep text readable */
-  body.paint-active {
-    color: theme('colors.gray.100');
-  }
-
-  /* Make header/background feel like dark mode immediately during the animation */
-  body.paint-active .bg-white { background-color: theme('colors.gray.900'); }
-  body.paint-active .bg-gray-50 { background-color: theme('colors.gray.900'); }
-  body.paint-active .bg-gray-100 { background-color: theme('colors.gray.800'); }
-  body.paint-active .border-gray-200 { border-color: theme('colors.gray.700'); }
-  body.paint-active .border-gray-300 { border-color: theme('colors.gray.700'); }
-
-  body.paint-active.text-gray-900 {
-    color: theme('colors.gray.100');
-  }
-
-  body.paint-active.text-gray-600 {
-    color: theme('colors.gray.300');
-  }
-
-  body.paint-active.text-gray-400 {
-    color: theme('colors.gray.400');
-  }
-
-  .paint-active .text-gray-900 { color: theme('colors.gray.100'); }
-  .paint-active .text-gray-600 { color: theme('colors.gray.300'); }
-  .paint-active .text-gray-400 { color: theme('colors.gray.400'); }
 
   .paint-overlay.is-animating {
-    opacity: 1;
-    animation: paintFill var(--paint-duration) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation: circleExpand var(--paint-duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
-  .paint-overlay.is-animating::after {
-    animation: edgeWobble var(--paint-duration) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  .paint-overlay .paint-drip {
-    position: absolute;
-    top: -40px;
-    background-color: inherit;
-    border-radius: 9999px;
-    opacity: 0.95;
-    animation: dripFall var(--paint-duration) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  @keyframes paintFill {
+  @keyframes circleExpand {
     0% {
-      height: 0;
+      transform: translate(-50%, -50%) scale(0);
       opacity: 1;
     }
     70% {
-      height: 100vh;
+      transform: translate(-50%, -50%) scale(1);
       opacity: 1;
     }
+    78% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
     100% {
-      height: 100vh;
+      transform: translate(-50%, -50%) scale(1);
       opacity: 0;
     }
   }
 
-  @keyframes dripFall {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(120vh);
-    }
-  }
-
-  @keyframes edgeWobble {
-    0% {
-      transform: translateY(-14px) scaleX(1.02);
-      filter: none;
-    }
-    40% {
-      transform: translateY(-6px) scaleX(1);
-    }
-    100% {
-      transform: translateY(-10px) scaleX(1.01);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .paint-overlay.is-animating,
-    .paint-overlay .paint-drip,
-    .paint-overlay.is-animating::after {
+    .paint-overlay.is-animating {
       animation: none !important;
     }
   }

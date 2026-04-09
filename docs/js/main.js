@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const root = document.documentElement;
     const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
     const storageKey = 'theme';
+    const HOME_TRANSITION_MS = 2800;
 
     function isHomePage() {
         const path = window.location.pathname;
@@ -12,32 +13,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function playPaintTransition(onMidpoint) {
+        // Respect reduced motion: skip the animation.
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (typeof onMidpoint === 'function') onMidpoint();
+            return;
+        }
+
         const overlay = document.createElement('div');
         overlay.className = 'paint-overlay';
 
-        const durationMs = 1400;
+        const durationMs = HOME_TRANSITION_MS;
         overlay.style.setProperty('--paint-duration', `${durationMs}ms`);
 
         document.body.classList.add('paint-active');
-
-        // Create a few drips for a "falling paint" feel.
-        const dripCount = 10;
-        for (let i = 0; i < dripCount; i++) {
-            const drip = document.createElement('span');
-            drip.className = 'paint-drip';
-
-            const left = (i / dripCount) * 100 + (Math.random() * 6 - 3);
-            const width = 14 + Math.random() * 28;
-            const height = 70 + Math.random() * 180;
-            const delay = Math.random() * 140;
-
-            drip.style.left = `${Math.max(0, Math.min(96, left))}%`;
-            drip.style.width = `${width}px`;
-            drip.style.height = `${height}px`;
-            drip.style.animationDelay = `${delay}ms`;
-
-            overlay.appendChild(drip);
-        }
 
         document.body.appendChild(overlay);
 
@@ -47,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply dark mode while paint is covering the page.
         const midpointTimer = window.setTimeout(() => {
             if (typeof onMidpoint === 'function') onMidpoint();
-        }, Math.round(durationMs * 0.7));
+        }, Math.round(durationMs * 0.70));
 
         const cleanup = () => {
             window.clearTimeout(midpointTimer);
@@ -88,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem(storageKey, next);
                     applyTheme(next);
                 });
-                window.setTimeout(() => toggleButtons.forEach(b => (b.disabled = false)), 1500);
+                window.setTimeout(() => toggleButtons.forEach(b => (b.disabled = false)), HOME_TRANSITION_MS + 200);
                 return;
             }
 
