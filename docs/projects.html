@@ -310,7 +310,7 @@
                                 <p class="slide-tech"><strong>Tech:</strong> Python, FastAPI, Pydantic, MongoDB, Google Gemini, pytest, React + TypeScript + Vite, Chrome Extension (MV3), Stripe APIs, CORS/REST</p>
                                 <div class="slide-links">
                                     <a href="https://github.com/Camila-Rojas-Molina/SageCoin-ConuHacks2026" class="link-github" target="_blank" rel="noopener noreferrer">GitHub</a>
-                                    <a href="https://drive.google.com/file/d/1zMzsYjdaR1NZVx5je2BtFVE6OzyQOMbg/view?usp=sharing" class="link-demo">Live Demo</a>
+                                    <a href="https://drive.google.com/drive/folders/146rPySjwKyZK0SO4TmArws4B9PydupFU?usp=sharing" class="link-demo" target="_blank" rel="noopener noreferrer">Live Demo</a>
                                 </div>
                             </div>
                         </article>
@@ -344,7 +344,7 @@
                                 <p class="slide-tech"><strong>Tech:</strong> Azure AI Foundry, MPC Server, GitHub Codespaces.</p>
                                 <div class="slide-links">
                                     
-                                    <a href="https://ambitious-stone-0f6b9760f.2.azurestaticapps.net/" class="link-demo">Live Demo</a>
+                                    <a href="https://ambitious-stone-0f6b9760f.2.azurestaticapps.net/" class="link-demo" target="_blank" rel="noopener noreferrer">Live Demo</a>
                                 </div>
                             </div>
                         </article>
@@ -529,6 +529,12 @@
             /* Drag / swipe with pointer events (touch + mouse + pen) */
             viewport.addEventListener('pointerdown', e => {
                 if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+                // If the user is clicking an interactive element (like a link), don't hijack it for dragging.
+                if (e.target && e.target.closest && e.target.closest('a, button, input, textarea, select, label')) {
+                    suppressClick = false;
+                    return;
+                }
 
                 activePointerId = e.pointerId;
                 viewport.setPointerCapture(e.pointerId);
